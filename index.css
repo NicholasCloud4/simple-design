@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap');
 
-html, body {
+html,
+body {
     margin: 0;
     padding: 0;
     height: 100vh;
@@ -10,6 +11,34 @@ body {
     font-family: 'Montserrat';
     display: grid;
     place-content: center;
+    background: #222322;
+    color: white
+}
+
+h1 {
+    margin-top: 0;
+    font-size: 2.4em;
+}
+
+p {
+    font-size: 1.2em;
+    margin-bottom: .5em;
+    text-transform: uppercase;
+}
+
+span {
+    color: #8326e0;
+    position: relative
+}
+
+span:before {
+    position: absolute;
+    content: '';
+    height: .2em;
+    width: 100%;
+    bottom: .1em;
+    z-index: -1;
+    background: #ffffff06;
 }
 
 /*
