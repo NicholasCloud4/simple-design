@@ -1,11 +1,128 @@
-<html>
-    <head>
-        <link rel="stylesheet" href="index.css">
-    </head>
-    <body>
-        <div class="container">
-            <p>Today's Article</p>
-            <h1>A Place in <span>Time</span> and <span>Space</span></h1>
-        </div>
-    </body>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Place in Time and Space</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <div class="particles"></div>
+    <div class="gradient-overlay"></div>
+    <div class="cursor-glow"></div>
+
+    <div class="container">
+        <p>Today's Article</p>
+        <h1>A Place in <span data-text="Time">Time</span> and <span data-text="Space">Space</span></h1>
+    </div>
+
+    <script>
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.querySelector('.particles');
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 8 + 's';
+                particle.style.animationDuration = (Math.random() * 4 + 6) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Create floating elements
+        function createFloatingElements() {
+            const body = document.body;
+            const elementCount = 8;
+
+            for (let i = 0; i < elementCount; i++) {
+                const element = document.createElement('div');
+                element.className = 'floating-element';
+                element.style.left = Math.random() * 100 + '%';
+                element.style.top = Math.random() * 100 + '%';
+                element.style.animationDelay = Math.random() * 12 + 's';
+                body.appendChild(element);
+            }
+        }
+
+        // Cursor glow effect
+        function initCursorGlow() {
+            const cursorGlow = document.querySelector('.cursor-glow');
+            let mouseX = 0;
+            let mouseY = 0;
+            let glowX = 0;
+            let glowY = 0;
+
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+            });
+
+            function animateGlow() {
+                glowX += (mouseX - glowX) * 0.1;
+                glowY += (mouseY - glowY) * 0.1;
+
+                cursorGlow.style.left = glowX - 10 + 'px';
+                cursorGlow.style.top = glowY - 10 + 'px';
+
+                requestAnimationFrame(animateGlow);
+            }
+            animateGlow();
+        }
+
+        // Text shimmer effect on hover
+        function initTextEffects() {
+            const spans = document.querySelectorAll('span');
+
+            spans.forEach(span => {
+                span.addEventListener('mouseenter', () => {
+                    span.style.background = 'linear-gradient(90deg, #8326e0, #a855f7, #c084fc, #a855f7, #8326e0)';
+                    span.style.backgroundSize = '200% 100%';
+                    span.style.webkitBackgroundClip = 'text';
+                    span.style.webkitTextFillColor = 'transparent';
+                    span.style.backgroundClip = 'text';
+                    span.style.animation = 'shimmer 1.5s ease-in-out infinite';
+                });
+
+                span.addEventListener('mouseleave', () => {
+                    span.style.background = 'none';
+                    span.style.webkitTextFillColor = '#8326e0';
+                    span.style.animation = 'none';
+                });
+            });
+        }
+
+        // Add shimmer keyframes
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes shimmer {
+                0% { background-position: -200% 0; }
+                100% { background-position: 200% 0; }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Initialize all effects
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            createFloatingElements();
+            initCursorGlow();
+            initTextEffects();
+        });
+
+        // Add subtle parallax effect
+        document.addEventListener('mousemove', (e) => {
+            const container = document.querySelector('.container');
+            const x = (e.clientX / window.innerWidth) * 2 - 1;
+            const y = (e.clientY / window.innerHeight) * 2 - 1;
+
+            container.style.transform = `translateY(-10px) translateX(${x * 5}px) translateZ(0)`;
+        });
+    </script>
+</body>
+
 </html>
